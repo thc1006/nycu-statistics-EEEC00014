@@ -1,0 +1,279 @@
+Loading required package: pacman
+
+====================================================
+ EXERCISE 4-42: THERMOCOUPLE LIFE
+====================================================
+
+--- Summary statistics ---
+   n     Mean     Var Std_Dev Std_Error Median
+1 15 551.3333 219.381 14.8115    3.8243    552
+Known sigma = 20.0000
+Known SE    = 5.1640
+
+--- (a)(b) One-sided z-test, P-value approach ---
+[1] 551.3333
+[1] 5.163978
+[1] 2.194691
+[1] 0.0140929
+H0: mu <= 540
+H1: mu >  540
+alpha       = 0.05
+xbar        = 551.3333
+z0          = 2.1947
+z critical  = 1.6449
+P-value     = 0.0141
+Decision:  REJECT H0 
+Conclusion:  There is evidence that mean life exceeds 540 hours.
+[Cross-check BSDA::z.test]  z = 2.1947, p = 0.0141
+
+--- (c) Beta when true mu = 560 ---
+[1] 0.01293593
+xbar critical = 548.4940
+beta          = 0.0129
+power         = 0.9871
+
+--- (d) Sample size so beta <= 0.10 when true mu = 560 ---
+Required n         = 9
+Power at n-1 ( 8) = 0.8817 , beta = 0.1183
+Power at n   ( 9) = 0.9123 , beta = 0.0877
+
+--- (e) 95% one-sided lower CI on mean life ---
+LCL = 542.8393
+CI : [ 542.8393 , Inf )
+
+--- (f) Test the hypothesis using the CI in (e) ---
+LCL = 542.8393, mu0 = 540 => LCL > 540, the null value lies outside the CI, reject H0.
+
+====================================================
+ EXERCISE 4-44: SAMPLE SIZE FOR MEAN LIFE
+====================================================
+Confidence level   = 0.95
+Margin of error E  = 5
+sigma              = 20
+Required sample n  = 62
+Manual: ((z * sigma)/E)^2 = ((1.9600 * 20)/5)^2 = 61.4633 -> ceiling = 62
+
+====================================================
+ EXERCISE 4-54: INTERIOR TEMPERATURE
+====================================================
+
+--- Summary statistics ---
+  n   Mean    Var Std_Dev Std_Error Median
+1 5 22.496 0.1431  0.3783    0.1692  22.59
+
+--- (b) Normality check  (Shapiro-Wilk + Q-Q plot) ---
+
+	Shapiro-Wilk normality test
+
+data:  temp_int
+W = 0.95969, p-value = 0.8058
+
+樣本數很小，Shapiro-Wilk power 不高，需要搭配 Q-Q plot 一起看。
+Plots saved: plots/ex4_54_qq.png, plots/ex4_54_hist.png
+
+--- (a) Two-sided t-test ---
+H0: mu  = 22.5
+H1: mu != 22.5
+xbar     = 22.4960
+s        = 0.3783
+t0       = -0.0236
+df       = 4
+P-value  = 0.9823
+Decision:  FAIL TO REJECT H0 
+[t.test cross-check]  t = -0.0236, p = 0.9823
+
+--- (c) 95% CI for mean interior temperature ---
+CI = (22.0262 , 22.9658)
+
+--- (d) Sample size for power >= 0.9, true mu = 22.75 ---
+delta       = 0.2500, sigma (=s) = 0.3783
+Required n  = 27
+Power at n-1 (26) = 0.8993
+Power at n   (27) = 0.9106
+
+====================================================
+ EXERCISE 4-59: DIODE BREAKDOWN VOLTAGE
+====================================================
+
+--- Summary statistics ---
+   n  Mean    Var Std_Dev Std_Error Median
+1 12 9.117 0.2151  0.4638    0.1339 9.1365
+
+--- (a) Normality check ---
+
+	Shapiro-Wilk normality test
+
+data:  diode_v
+W = 0.98423, p-value = 0.9953
+
+Plots saved: plots/ex4_59_qq.png, plots/ex4_59_hist.png
+
+--- (b) One-sided t-test, H1: mu < 9 ---
+xbar    = 9.1170
+s       = 0.4638
+t0      = 0.8738
+df      = 11
+P-value = 0.7996
+Decision:  FAIL TO REJECT H0 
+[t.test cross-check]  t = 0.8738, p = 0.7996
+
+--- (c) 95% one-sided upper confidence bound ---
+UCL = 9.3575
+CI : ( -Inf , 9.3575 ]
+
+--- (d) Test using the upper bound from (c) ---
+UCL = 9.3575, mu0 = 9 => UCL >= 9, mu0 lies inside the CI, do not reject H0.
+
+--- (e) Sample size for power >= 0.95, true mu = 8.8 ---
+delta = -0.2000, sigma (=s) = 0.4638
+Required n = 60
+Power at n-1 (59) = 0.9483
+Power at n   (60) = 0.9512
+
+====================================================
+ EXERCISE 4-65: CLOUD SEEDING RAINFALL
+====================================================
+
+--- Summary statistics ---
+   n   Mean    Var Std_Dev Std_Error Median
+1 20 26.035 22.894  4.7848    1.0699   26.8
+
+--- (b) Normality check ---
+
+	Shapiro-Wilk normality test
+
+data:  rain
+W = 0.97025, p-value = 0.7601
+
+Plots saved: plots/ex4_65_qq.png, plots/ex4_65_hist.png
+
+--- (a) One-sided t-test, P-value ---
+xbar     = 26.0350
+s        = 4.7848
+t0       = 0.9674
+df       = 19
+P-value  = 0.1728
+Decision:  FAIL TO REJECT H0 
+[t.test cross-check]  t = 0.9674, p = 0.1728
+
+--- (c) Power if true mu = 27 ---
+delta = 2.0000, sigma (=s) = 4.7848
+Power = 0.2781, beta = 0.7219
+
+--- (d) Sample size for power >= 0.9, true mu = 27.5 ---
+Required n = 51
+Power at n-1 (50) = 0.8971
+Power at n   (51) = 0.9037
+
+--- (e) One-sided lower confidence bound for mean rainfall ---
+Note: The textbook says 'mean diameter' in part (e); the context indicates this should be 'mean rainfall'. We answer for mean rainfall.
+LCL = 23.3180
+CI : [ 23.3180 , Inf )
+Compare LCL with mu0 = 25: LCL <= 25, do not reject H0.
+
+====================================================
+ EXERCISE 4-71: TITANIUM ALLOY SIGMA TEST
+====================================================
+假設母體近似常態分配，這個 chi-square test 才有效。
+
+--- (a)(b) Chi-square test ---
+H0: sigma  = 0.35
+H1: sigma != 0.35
+chi0    = 55.8776
+df      = 50
+P-value = 0.5272
+Critical: chi^2_{0.025,50} = 71.4202, chi^2_{0.975,50} = 32.3574
+Decision:  FAIL TO REJECT H0 
+
+--- (c) 95% two-sided CI for sigma ---
+CI for sigma^2 : (0.0958 , 0.2115)
+CI for sigma   : (0.3096 , 0.4599)
+
+--- (d) Test the hypothesis using the CI ---
+Is sigma0 = 0.35 inside (0.3096, 0.4599)? Yes => do not reject H0.
+
+====================================================
+ EXERCISE 4-75: VAN ROLLOVER PROPORTION
+====================================================
+phat = 11 / 30 = 0.3667
+
+--- (a) One-proportion z-test, H1: p > 0.25 ---
+z0      = 1.4757
+P-value = 0.0700
+Decision:  REJECT H0 
+[prop.test cross-check]  chi^2 = 2.1778, p = 0.0700
+
+--- (b) Beta when true p = 0.35 ---
+phat critical = 0.3513
+beta          = 0.5060
+
+--- (c) Sample size so beta = 0.10 when true p = 0.35 ---
+Required n = 136
+
+--- (d) 90% traditional one-sided lower confidence bound ---
+LCB = 0.2539
+CI : [ 0.2539 , 1 ]
+
+--- (e) Test using the lower bound ---
+LCB = 0.2539 vs p0 = 0.25 => LCB > 0.25, reject H0 -- claim supported.
+
+--- (f) Sample size for E < 0.02, 95% confidence, phat = 11/30 ---
+Using phat = 0.3667, required n = 2231
+
+====================================================
+ EXERCISE 4-76: HELMET DAMAGE PROPORTION
+====================================================
+phat = 18 / 50 = 0.3600
+
+--- (a)(b) Two-sided z-test ---
+z0      = 0.9258
+P-value = 0.3545
+Decision:  FAIL TO REJECT H0 
+[prop.test cross-check]  chi^2 = 0.8571, p = 0.3545
+
+--- (c) 95% two-sided traditional CI ---
+CI = (0.2270 , 0.4930)
+Is p0 = 0.30 inside the CI? Yes => fail to reject H0 (consistent with the test).
+
+--- (d) Sample size for E < 0.02, 95% conf., using phat = 18/50 ---
+Using phat = 0.3600, required n = 2213
+
+--- (e) Conservative sample size using p = 0.5 ---
+Using p = 0.50, required n = 2401
+
+====================================================
+ EXERCISE 4-89: AGRESTI-COULL CI
+====================================================
+Agresti-Coull 用調整過的樣本數和點估計來建立 CI，這是和傳統 Wald CI 的核心差別。
+Adjusted n_tilde = 53.8415
+Adjusted p_tilde = 0.3700
+Agresti-Coull CI : (0.2410 , 0.4989)
+Traditional CI   : (0.2270 , 0.4930)
+Width comparison : AC width = 0.2579, traditional width = 0.2661
+
+====================================================
+ EXERCISE 4-95: PI AND TOLERANCE INTERVAL
+====================================================
+
+--- (a) 99% Prediction Interval for one future diode ---
+xbar = 9.1170, s = 0.4638, n = 12
+PI = (7.6177 , 10.6163)
+PI 的標的是『下一筆觀測值』，比 CI 寬一些是正常的。
+
+--- (b) 99%/99% two-sided normal tolerance interval ---
+  alpha    P x.bar 2-sided.lower 2-sided.upper
+1  0.01 0.99 9.117      6.736194      11.49781
+
+TI = (6.7362 , 11.4978)
+TI 是希望涵蓋『母體中 99% 的個體』，而不是平均數，所以會比 PI 再寬一點。
+# A tibble: 3 × 4
+  type            lower upper width
+  <chr>           <dbl> <dbl> <dbl>
+1 99% CI for mean  8.70  9.53 0.832
+2 99% PI           7.62 10.6  3.00 
+3 99% / 99% TI     6.74 11.5  4.76 
+Plot saved: plots/ex4_95_intervals.png
+
+====================================================
+ All exercises completed.
+====================================================

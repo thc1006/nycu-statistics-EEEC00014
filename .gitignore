@@ -1,0 +1,29 @@
+# R
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# RMarkdown / knitr build artifacts
+*.knit.md
+*.utf8.md
+*.aux
+*.log
+*.out
+*.toc
+*.tex
+*-fonts
+homework1_files/
+
+# Render preview (本地 visual review 用，不應進版控)
+_pdf_preview/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
