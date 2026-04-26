@@ -256,7 +256,7 @@ knitr::include_graphics(c("plots/ex4_65_qq.png", "plots/ex4_65_hist.png"))
 \item \textbf{(b)} Shapiro-Wilk $W = 0.9702$、$p = 0.7601$，常態假設可以接受。
 \item \textbf{(c)} 真實 $\mu = 27$ 時 power $\approx 0.2781$、$\beta \approx 0.7219$，這代表 $n = 20$ 對 2 acre-feet 的差距偵測力其實不高。
 \item \textbf{(d)} 想偵測 $\mu = 27.5$、power $\ge 0.9$，$n = \mathbf{51}$（$n=50$ 時 power $= 0.8971$，$n=51$ 過關）。
-\item \textbf{(e)} 95\% 一邊下界 CI（脈絡上看是 mean rainfall）：$[\,23.3180,\;\infty)$。LCL 沒跑到 25 上面，跟 (a) 一樣 \textbf{不拒絕 $H_0$}；用一邊下界比較 25 跟 P-value 的結論完全一致。
+\item \textbf{(e)} 因 (a) 用 $\alpha = 0.01$，配對的是 \textbf{99\%} 一邊下界 CI（脈絡上看是 mean rainfall）：$[\,23.3180,\;\infty)$。LCL 沒跑到 25 上面，跟 (a) 一樣 \textbf{不拒絕 $H_0$}；用一邊下界比較 25 跟 P-value 的結論完全一致。
 \item \textit{補註：題目英文寫 "mean diameter" 跟前後文的雨量主題不符，疑似原書誤植。本題答案依雨量脈絡作答。}
 \end{itemize}
 \end{answerbox}
