@@ -136,19 +136,23 @@ get_stats <- function(x) {
 }
 
 # Q-Q + 直方圖一次存（給 5-41 paired diff 用）
-save_normality_plots <- function(x, title_tag, file_prefix) {
+# x_label 走具體的軸名，避免印出 "Value" 這種沒資訊量的字
+save_normality_plots <- function(x, title_tag, file_prefix, x_label = "Value") {
   df <- data.frame(value = x)
   sw <- shapiro.test(x)
   sw_sub <- sprintf("Shapiro-Wilk: W = %.3f, p = %.3f", sw$statistic, sw$p.value)
   stats_sub <- sprintf("n = %d, x_bar = %.3f, s = %.3f",
                        length(x), mean(x), sd(x))
   p_qq <- ggplot(df, aes(sample = value)) +
-    stat_qq(color = "steelblue", size = 2.2) +
-    stat_qq_line(color = "firebrick", linewidth = 0.8) +
+    stat_qq(color = "steelblue", size = 2.4) +
+    stat_qq_line(color = "firebrick", linewidth = 0.9) +
     labs(title = paste("Normal Q-Q Plot:", title_tag),
          subtitle = sw_sub,
-         x = "Theoretical Quantiles", y = "Sample Quantiles") +
-    theme_minimal(base_size = 12)
+         x = "Theoretical normal quantiles",
+         y = paste0("Sample quantiles of ", x_label)) +
+    theme_minimal(base_size = 13) +
+    theme(plot.title    = element_text(face = "bold"),
+          axis.title    = element_text(face = "bold"))
   bins_used <- if (length(x) <= 6) 4 else max(5, min(10, ceiling(log2(length(x)) + 1)))
   p_hist <- ggplot(df, aes(x = value)) +
     geom_histogram(aes(y = after_stat(density)),
@@ -160,12 +164,14 @@ save_normality_plots <- function(x, title_tag, file_prefix) {
                   color = "firebrick", linewidth = 1) +
     labs(title = paste("Histogram with Normal Curve:", title_tag),
          subtitle = stats_sub,
-         x = "Value", y = "Density") +
-    theme_minimal(base_size = 12)
+         x = x_label, y = "Density") +
+    theme_minimal(base_size = 13) +
+    theme(plot.title    = element_text(face = "bold"),
+          axis.title    = element_text(face = "bold"))
   ggsave(paste0("figures/", file_prefix, "_qq.png"),
-         p_qq, width = 6.5, height = 4.5, dpi = 200)
+         p_qq, width = 7.5, height = 5.2, dpi = 220)
   ggsave(paste0("figures/", file_prefix, "_hist.png"),
-         p_hist, width = 6.5, height = 4.5, dpi = 200)
+         p_hist, width = 7.5, height = 5.2, dpi = 220)
 }
 
 
@@ -268,15 +274,23 @@ pwr_grid <- tibble(
   power = Pwr.z.test(params$n, delta, params$sigma, params$alpha, "two.sided")
 )
 p_pwr_5_3 <- ggplot(pwr_grid, aes(delta, power)) +
-  geom_line(color = "steelblue", linewidth = 1) +
+  geom_line(color = "steelblue", linewidth = 1.1) +
   geom_hline(yintercept = 0.99, linetype = "dashed", color = "firebrick") +
   geom_vline(xintercept = 0.04, linetype = "dotted",  color = "darkgreen") +
-  labs(title = "Ex 5-3 Power curve",
-       subtitle = "known sigma = (0.020, 0.025), n = (10, 10), alpha = 0.05",
-       x = "True |mu1 - mu2|", y = "Power") +
-  theme_minimal(base_size = 12)
+  annotate("text", x = 0.042, y = 0.45, label = "delta = 0.04",
+           color = "darkgreen", hjust = 0, size = 4) +
+  annotate("text", x = 0.08, y = 0.965, label = "target power = 0.99",
+           color = "firebrick", hjust = 0, size = 4) +
+  scale_y_continuous(breaks = seq(0, 1, 0.25), limits = c(0, 1.02)) +
+  labs(title = "Ex 5-3 Two-sample z-test power curve",
+       subtitle = "known sigma1 = 0.020, sigma2 = 0.025; n1 = n2 = 10; alpha = 0.05",
+       x = expression(paste("True difference  |", mu[1] - mu[2], "|  (oz)")),
+       y = expression(paste("Power  = 1 - ", beta))) +
+  theme_minimal(base_size = 13) +
+  theme(plot.title  = element_text(face = "bold"),
+        axis.title  = element_text(face = "bold"))
 ggsave("figures/5-3_power_curve.png", p_pwr_5_3,
-       width = 6.5, height = 4.5, dpi = 200)
+       width = 7.5, height = 5.0, dpi = 220)
 
 
 ## ---- ex5_05 ----
@@ -330,6 +344,45 @@ CI <- c((xbar[1] - xbar[2]) - CritVal * se0,
 cat(sprintf("CI = (%.3f , %.3f)\n", CI[1], CI[2]))
 cat(sprintf("[zsum.test CI]   (%.3f , %.3f)\n",
             zsum_chk$conf.int[1], zsum_chk$conf.int[2]))
+
+# Beta 區域圖：H0 跟 H1 兩條常態，beta 對應沒被拒絕的部分
+# 拿真實 delta = 2.5 的設定畫，能看出 power=0.75 的幾何意義
+beta_grid <- seq(-3, 6, length.out = 600)
+beta_df <- tibble(
+  d        = beta_grid,
+  null     = dnorm(beta_grid, mean = 0,       sd = se0),
+  alt      = dnorm(beta_grid, mean = 2.5,     sd = se0)
+)
+crit_lo <- -CritVal * se0
+crit_hi <-  CritVal * se0
+# 在 H1 下沒被拒絕的區間就是 beta
+shade_df <- beta_df %>%
+  filter(d >= crit_lo, d <= crit_hi) %>%
+  mutate(ymin = 0)
+p_beta_5_5 <- ggplot(beta_df, aes(d)) +
+  geom_area(aes(y = alt), data = shade_df,
+            fill = "orange", alpha = 0.45) +
+  geom_line(aes(y = null), color = "steelblue", linewidth = 1) +
+  geom_line(aes(y = alt),  color = "firebrick", linewidth = 1) +
+  geom_vline(xintercept = c(crit_lo, crit_hi),
+             linetype = "dashed", color = "gray30") +
+  annotate("text", x = 0,   y = 0.5, label = "H0: mu1 - mu2 = 0",
+           color = "steelblue", size = 4, hjust = 0.5) +
+  annotate("text", x = 2.5, y = 0.5, label = "H1: mu1 - mu2 = 2.5",
+           color = "firebrick", size = 4, hjust = 0.5) +
+  annotate("text", x = 1.0, y = 0.12,
+           label = sprintf("beta region\n(area = %.3f)", 1 - pwr_c),
+           color = "darkorange3", size = 3.8, hjust = 0.5) +
+  labs(title = "Ex 5-5 Two-sample z-test: beta region at true delta = 2.5",
+       subtitle = "sigma = 3 cm/s, n1 = n2 = 20, alpha = 0.05; two-sided",
+       x = expression(paste("Sample mean difference  ",
+                            bar(x)[1] - bar(x)[2], "  (cm/s)")),
+       y = "Density") +
+  theme_minimal(base_size = 13) +
+  theme(plot.title = element_text(face = "bold"),
+        axis.title = element_text(face = "bold"))
+ggsave("figures/5-5_beta_region.png", p_beta_5_5,
+       width = 7.8, height = 5.0, dpi = 220)
 
 
 ## ---- ex5_09 ----
@@ -422,6 +475,38 @@ cat(sprintf("Power at n-1 (%d) = %.3f , beta = %.3f\n",
 cat(sprintf("Power at n   (%d) = %.3f , beta = %.3f\n",
             n_req,     pw_n,  1 - pw_n))
 
+# t 分布拒絕區圖：df=28, 雙尾 alpha=0.05，順手把觀察到的 t0 也標出來
+t_grid <- seq(-8, 8, length.out = 700)
+t_df_plot <- tibble(t = t_grid, dens = dt(t_grid, df))
+crit_t <- qt(1 - alpha/2, df)
+reject_lo <- t_df_plot %>% filter(t <= -crit_t)
+reject_hi <- t_df_plot %>% filter(t >=  crit_t)
+p_t_5_17 <- ggplot(t_df_plot, aes(t, dens)) +
+  geom_area(data = reject_lo, fill = "firebrick", alpha = 0.45) +
+  geom_area(data = reject_hi, fill = "firebrick", alpha = 0.45) +
+  geom_line(color = "steelblue", linewidth = 1) +
+  geom_vline(xintercept = c(-crit_t, crit_t),
+             linetype = "dashed", color = "gray30") +
+  geom_vline(xintercept = t0, linetype = "solid",
+             color = "darkgreen", linewidth = 1) +
+  annotate("text", x = -crit_t, y = 0.35,
+           label = sprintf("-t_{0.025, 28}\n= %.3f", -crit_t),
+           color = "firebrick", size = 3.8, hjust = 1.05) +
+  annotate("text", x = crit_t,  y = 0.35,
+           label = sprintf("t_{0.025, 28}\n= %.3f", crit_t),
+           color = "firebrick", size = 3.8, hjust = -0.05) +
+  annotate("text", x = t0, y = 0.18,
+           label = sprintf("observed t0\n= %.3f", t0),
+           color = "darkgreen", size = 3.8, hjust = -0.05) +
+  labs(title = "Ex 5-17 Pooled t-test: rejection regions and observed t0",
+       subtitle = "df = 28, two-sided alpha = 0.05",
+       x = "t statistic", y = "Density") +
+  theme_minimal(base_size = 13) +
+  theme(plot.title = element_text(face = "bold"),
+        axis.title = element_text(face = "bold"))
+ggsave("figures/5-17_t_rejection.png", p_t_5_17,
+       width = 7.8, height = 5.0, dpi = 220)
+
 
 ## ---- ex5_24 ----
 # =============================================================================
@@ -491,6 +576,41 @@ cat(sprintf("Is 25 inside the CI? %s -> %s\n",
                    "consistent with (b): FAIL TO REJECT",
                    "would REJECT H0 in (b)")))
 
+# CI 圖：把點估計 + 95% CI + 兩條參考線 (0 與 25) 畫在同一條 X 軸上
+ci_df_5_24 <- tibble(
+  label = "mu2 - mu1",
+  est   = xbar[2] - xbar[1],
+  lo    = CI[1],
+  hi    = CI[2]
+)
+p_ci_5_24 <- ggplot(ci_df_5_24, aes(y = label)) +
+  geom_vline(xintercept = 0,  linetype = "dashed", color = "gray40") +
+  geom_vline(xintercept = 25, linetype = "dotdash", color = "firebrick",
+             linewidth = 0.8) +
+  geom_segment(aes(x = lo, xend = hi, yend = label),
+               linewidth = 2, color = "steelblue") +
+  geom_point(aes(x = est), size = 4.5, color = "navy") +
+  geom_text(aes(x = est, label = sprintf("%.3f", est)),
+            vjust = -1.2, size = 4, color = "navy") +
+  geom_text(aes(x = lo, label = sprintf("%.3f", lo)),
+            vjust = 2.2, size = 3.6, color = "gray30") +
+  geom_text(aes(x = hi, label = sprintf("%.3f", hi)),
+            vjust = 2.2, size = 3.6, color = "gray30") +
+  annotate("text", x = 0,  y = 0.6, label = "0 (test in (a))",
+           color = "gray30",   size = 3.6, hjust = -0.05) +
+  annotate("text", x = 25, y = 0.6, label = "25 (test in (b))",
+           color = "firebrick", size = 3.6, hjust = -0.05) +
+  scale_x_continuous(breaks = c(0, 10, 20, 25, 30, 40, 50)) +
+  labs(title = "Ex 5-24 Welch 95% CI for mu2 - mu1, with H0 boundaries",
+       subtitle = "n1 = 10, n2 = 16; Welch df = 18.226; SE = 8.842",
+       x = "Difference in mean impact strength (foot-pounds)", y = NULL) +
+  theme_minimal(base_size = 13) +
+  theme(plot.title  = element_text(face = "bold"),
+        axis.title  = element_text(face = "bold"),
+        axis.text.y = element_text(face = "bold", size = 12))
+ggsave("figures/5-24_ci_forest.png", p_ci_5_24,
+       width = 8.5, height = 4.2, dpi = 220)
+
 
 ## ---- ex5_41 ----
 # =============================================================================
@@ -536,7 +656,10 @@ if (CI[1] <= 0 && 0 <= CI[2]) {
 # --- (b) Normality of the differences ---
 print_subhead("(b) Normality check on the paired differences")
 (sw_p <- shapiro.test(Coding.diff))
-save_normality_plots(Coding.diff, "Ex 5-41 Coding.diff", "5-41_diff")
+save_normality_plots(Coding.diff,
+                     "Ex 5-41 Coding.diff",
+                     "5-41_diff",
+                     x_label = "Coding.diff = Lang1 - Lang2 (minutes)")
 # qqPlot 來自 car，老師範例常用
 png("figures/5-41_diff_qqplot.png", width = 1100, height = 800, res = 150)
 car::qqPlot(Coding.diff,
@@ -583,6 +706,41 @@ LB <- (s[1]^2 / s[2]^2) / qf(1 - alpha/2, df[1], df[2])
 UB <- (s[1]^2 / s[2]^2) / qf(    alpha/2, df[1], df[2])
 cat(sprintf("95%% CI for sigma1^2 / sigma2^2 = (%.3f , %.3f)\n", LB, UB))
 cat("1 落在 CI 裡 -> 跟 P-value 結論一致（不拒絕兩變異數相等）。\n")
+
+# F(9, 15) 分布 + 雙尾拒絕區 + f0 標記
+f_grid <- seq(0.001, 6, length.out = 700)
+f_df_plot <- tibble(f = f_grid, dens = df(f_grid, df[1], df[2]))
+rej_lo_f <- f_df_plot %>% filter(f <= f_low)
+rej_hi_f <- f_df_plot %>% filter(f >= f_high)
+p_f_5_59 <- ggplot(f_df_plot, aes(f, dens)) +
+  geom_area(data = rej_lo_f, fill = "firebrick", alpha = 0.45) +
+  geom_area(data = rej_hi_f, fill = "firebrick", alpha = 0.45) +
+  geom_line(color = "steelblue", linewidth = 1) +
+  geom_vline(xintercept = c(f_low, f_high),
+             linetype = "dashed", color = "gray30") +
+  geom_vline(xintercept = f0, linetype = "solid",
+             color = "darkgreen", linewidth = 1) +
+  # 三個標籤往畫面右上半排，避開曲線、彼此也不重疊
+  annotate("text", x = 2.4, y = 0.78,
+           label = sprintf("F_{0.025, 9, 15} = %.3f  (left dashed line)", f_low),
+           color = "firebrick", size = 4, hjust = 0) +
+  annotate("text", x = 2.4, y = 0.68,
+           label = sprintf("F_{0.975, 9, 15} = %.3f  (right dashed line)", f_high),
+           color = "firebrick", size = 4, hjust = 0) +
+  annotate("text", x = 2.4, y = 0.58,
+           label = sprintf("observed f0 = %.3f  (solid green line)", f0),
+           color = "darkgreen", size = 4, hjust = 0) +
+  # tick 拆成整數，避免 1.00 跟 1.15 擠在一起
+  scale_x_continuous(breaks = c(0, 1, 2, 3, 4, 5, 6),
+                     limits = c(0, 6)) +
+  labs(title = "Ex 5-59 Two-sided F-test: rejection regions and observed f0",
+       subtitle = "df = (9, 15), alpha = 0.05; f0 = s1^2 / s2^2 = 1.148",
+       x = "F statistic", y = "Density") +
+  theme_minimal(base_size = 13) +
+  theme(plot.title = element_text(face = "bold"),
+        axis.title = element_text(face = "bold"))
+ggsave("figures/5-59_f_rejection.png", p_f_5_59,
+       width = 8.5, height = 5.0, dpi = 220)
 
 
 ## ---- ex5_69 ----
@@ -636,6 +794,40 @@ cat(sprintf("Required n (each group) = %d\n", n_req))
 cat(sprintf("Power at current n = 100 each: %.3f\n", pwr_at100))
 cat("結論：n=100 還沒到 0.9 power，按公式得補到 ", n_req, " 每組才夠。\n", sep = "")
 
+# Power 對「每組樣本數」的關係圖：把現有 n=100 跟需要的 n=166 都標出來
+n_grid <- seq(30, 250, by = 2)
+pwr_grid_5_69 <- tibble(
+  n_each = n_grid,
+  power  = vapply(n_grid,
+                  function(nn) Pwr.prop2.test(c(nn, nn),
+                                              pA = pA_b, pB = pB_b,
+                                              alpha = alpha, alt = "greater"),
+                  numeric(1))
+)
+p_pwr_5_69 <- ggplot(pwr_grid_5_69, aes(n_each, power)) +
+  geom_line(color = "steelblue", linewidth = 1.1) +
+  geom_hline(yintercept = 0.90, linetype = "dashed", color = "firebrick") +
+  geom_vline(xintercept = 100,   linetype = "dotted",  color = "darkgreen") +
+  geom_vline(xintercept = n_req, linetype = "dotted",  color = "purple") +
+  geom_point(aes(x = 100,   y = pwr_at100), color = "darkgreen", size = 3) +
+  geom_point(aes(x = n_req, y = 0.90),      color = "purple",    size = 3) +
+  annotate("text", x = 100, y = pwr_at100 - 0.08,
+           label = sprintf("n = 100,\npower = %.3f", pwr_at100),
+           color = "darkgreen", size = 3.8, hjust = 1.05) +
+  annotate("text", x = n_req, y = 0.82,
+           label = sprintf("n = %d for\npower >= 0.90", n_req),
+           color = "purple", size = 3.8, hjust = -0.05) +
+  scale_y_continuous(breaks = seq(0, 1, 0.1), limits = c(0, 1.02)) +
+  labs(title = "Ex 5-69 Two-proportion test: power vs per-group sample size",
+       subtitle = "Under H1: pA = 0.40, pB = 0.25; alpha = 0.05; one-sided",
+       x = "Per-group sample size  n",
+       y = expression(paste("Power  = 1 - ", beta))) +
+  theme_minimal(base_size = 13) +
+  theme(plot.title = element_text(face = "bold"),
+        axis.title = element_text(face = "bold"))
+ggsave("figures/5-69_power_vs_n.png", p_pwr_5_69,
+       width = 8.0, height = 5.0, dpi = 220)
+
 
 ## ---- ex5_71 ----
 # =============================================================================
@@ -688,6 +880,41 @@ cat(sprintf("Traditional bound LB    = %.3f (from 5-71)\n", LB_trad))
 cat(sprintf("Difference (new - trad) = %.3f\n", LB_new - LB_trad))
 cat("解讀：plus-four 把 (x, n) 換成 (x+1, n+2)，等於各組多 1 顆成功 1 顆失敗，\n")
 cat("       ptilde 更靠近 0.5，setilde 微幅變大，下界比傳統 Wald 略保守。\n")
+
+# 把兩條單邊下界畫成水平線段，0 標一條垂直參考
+lb_df <- tibble(
+  method = factor(c("Traditional Wald (5-71)",
+                    "Plus-four / Agresti-Caffo (5-73)"),
+                  levels = c("Traditional Wald (5-71)",
+                             "Plus-four / Agresti-Caffo (5-73)")),
+  point  = c(st$phat.diff,  st$ptilde.diff),
+  lb     = c(LB_trad,       LB_new)
+)
+p_lb <- ggplot(lb_df, aes(y = method)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "firebrick") +
+  geom_segment(aes(x = lb, xend = point, yend = method),
+               linewidth = 1.8, color = "steelblue") +
+  geom_point(aes(x = point), size = 4, color = "navy") +
+  geom_point(aes(x = lb),    size = 3.6, color = "darkorange3") +
+  geom_text(aes(x = lb, label = sprintf("LB = %.3f", lb)),
+            color = "darkorange3", vjust = -1.4, size = 4) +
+  geom_text(aes(x = point, label = sprintf("point = %.3f", point)),
+            color = "navy", vjust = -1.4, hjust = 0.5, size = 4) +
+  # 左右各保留留白，避免 labels 被切掉
+  scale_x_continuous(breaks = seq(-0.05, 0.15, 0.025),
+                     limits = c(-0.03, 0.135),
+                     expand = expansion(mult = 0.04)) +
+  labs(title = "Ex 5-71 vs 5-73: 95% one-sided lower bound on pA - pB",
+       subtitle = "Both bounds straddle 0, so neither can conclude pA > pB at 95% confidence",
+       x = expression(paste(p[A], " - ", p[B], "  (percentage points)")),
+       y = NULL) +
+  theme_minimal(base_size = 13) +
+  theme(plot.title  = element_text(face = "bold"),
+        axis.title  = element_text(face = "bold"),
+        axis.text.y = element_text(face = "bold", size = 11),
+        plot.margin = margin(10, 18, 10, 10))
+ggsave("figures/5-71-73_lb_compare.png", p_lb,
+       width = 9.0, height = 4.2, dpi = 220)
 
 
 # =============================================================================

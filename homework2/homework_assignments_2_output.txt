@@ -199,6 +199,15 @@ Power = 0.735 , beta = 0.265
 Required n (each group) = 166
 Power at current n = 100 each: 0.735
 結論：n=100 還沒到 0.9 power，按公式得補到 166 每組才夠。
+警告訊息：
+1: 於 geom_point(aes(x = 100, y = pwr_at100), color = "darkgreen", ：
+  All aesthetics have length 1, but the data has 111 rows.
+ℹ Please consider using `annotate()` or provide this layer with data containing
+  a single row.
+2: 於 geom_point(aes(x = n_req, y = 0.9), color = "purple", size = 3)：
+  All aesthetics have length 1, but the data has 111 rows.
+ℹ Please consider using `annotate()` or provide this layer with data containing
+  a single row.
 
 ============================================================
  EXERCISE 5-71: 95% LOWER CONFIDENCE BOUND FOR pA - pB

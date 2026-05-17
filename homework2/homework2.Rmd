@@ -128,7 +128,7 @@ Samples*。10 題依題型大致可以分成五群：
 ```{r ex5_03}
 ```
 
-```{r ex5_03-fig, echo=FALSE, fig.cap="Ex 5-3 Power curve（紅虛線是目標 power = 0.99，綠點線是 $|\\mu_1-\\mu_2| = 0.04$）"}
+```{r ex5_03-fig, echo=FALSE, out.width="88%", fig.cap="Ex 5-3 Power curve：X 軸是真實平均差 $|\\mu_1 - \\mu_2|$（oz），Y 軸是 power；紅虛線標目標 power = 0.99，綠點線標 $\\delta = 0.04$。"}
 knitr::include_graphics("figures/5-3_power_curve.png")
 ```
 
@@ -157,6 +157,10 @@ knitr::include_graphics("figures/5-3_power_curve.png")
 \end{questionbox}
 
 ```{r ex5_05}
+```
+
+```{r ex5_05-fig, echo=FALSE, out.width="88%", fig.cap="Ex 5-5 在真實 $\\delta = 2.5$ 下的 $\\beta$ 區域：藍色為 $H_0$ 抽樣分配、紅色為 $H_1$ 抽樣分配，灰色虛線是雙尾 $\\alpha = 0.05$ 的臨界值。橘色區域就是 $\\beta = 0.250$。"}
+knitr::include_graphics("figures/5-5_beta_region.png")
 ```
 
 \begin{answerbox}
@@ -204,6 +208,10 @@ n \;=\; \left\lceil \frac{z_{0.005}^2\,(\sigma_1^2 + \sigma_2^2)}{E^2}\right\rce
 ```{r ex5_17}
 ```
 
+```{r ex5_17-fig, echo=FALSE, out.width="88%", fig.cap="Ex 5-17 pooled t 拒絕區與觀察到的 $t_0$：X 軸是 t 統計量、Y 軸是密度；灰色虛線是 $\\pm t_{0.025,28}$，淺紅色就是雙尾拒絕區，深綠色實線是觀察到的 $t_0 = 6.997$（完全跑到右尾外，所以 P-value 極小）。"}
+knitr::include_graphics("figures/5-17_t_rejection.png")
+```
+
 \begin{answerbox}
 \begin{itemize}
 \item \textbf{(a)} $s_p = 8.261$、$SE = 3.017$、$t_0 = 6.997$、$df = 28$；雙尾 $P\text{-value} \approx 1.31 \times 10^{-7}$，遠小於 0.05 $\Rightarrow$ \textbf{REJECT $H_0$}：single 跟 double 製程的 backside chipout 平均不同。
@@ -227,6 +235,10 @@ n \;=\; \left\lceil \frac{z_{0.005}^2\,(\sigma_1^2 + \sigma_2^2)}{E^2}\right\rce
 \end{questionbox}
 
 ```{r ex5_24}
+```
+
+```{r ex5_24-fig, echo=FALSE, out.width="92%", fig.cap="Ex 5-24 Welch 95\\% CI for $\\mu_2 - \\mu_1$（藍粗線段），點估計 32.200 在中央。灰色虛線是 (a) 的 $\\Delta_0 = 0$，紅色點劃線是 (b) 的 $\\Delta_0 = 25$。0 落在 CI 之外（拒絕 (a)）、25 落在 CI 之內（不拒絕 (b)）。"}
+knitr::include_graphics("figures/5-24_ci_forest.png")
 ```
 
 \begin{answerbox}
@@ -253,8 +265,12 @@ n \;=\; \left\lceil \frac{z_{0.005}^2\,(\sigma_1^2 + \sigma_2^2)}{E^2}\right\rce
 ```{r ex5_41}
 ```
 
-```{r ex5_41-figs, echo=FALSE, fig.show='hold', out.width="48%", fig.cap="Ex 5-41 Coding.diff (Lang1 - Lang2) 常態性檢查：Q-Q plot 與直方圖"}
-knitr::include_graphics(c("figures/5-41_diff_qq.png", "figures/5-41_diff_hist.png"))
+```{r ex5_41-fig-qq, echo=FALSE, out.width="80%", fig.cap="Ex 5-41 配對差值的 Normal Q-Q plot。X 軸是理論常態分位數、Y 軸是樣本分位數（單位：分鐘）；12 個點都貼著紅色參考線，配合 $W = 0.962$、$p = 0.807$ 可以接受差值的常態假設。"}
+knitr::include_graphics("figures/5-41_diff_qq.png")
+```
+
+```{r ex5_41-fig-hist, echo=FALSE, out.width="80%", fig.cap="Ex 5-41 配對差值的直方圖與套疊的常態曲線。X 軸是 Coding.diff（分鐘）、Y 軸是 density；底部 rug 把 12 個觀測值的位置點出來。"}
+knitr::include_graphics("figures/5-41_diff_hist.png")
 ```
 
 \begin{answerbox}
@@ -274,6 +290,10 @@ knitr::include_graphics(c("figures/5-41_diff_qq.png", "figures/5-41_diff_hist.pn
 \end{questionbox}
 
 ```{r ex5_59}
+```
+
+```{r ex5_59-fig, echo=FALSE, out.width="92%", fig.cap="Ex 5-59 F(9,15) 分布、雙尾 $\\alpha = 0.05$ 拒絕區（淺紅色）、觀察到的 $f_0 = 1.148$（綠色實線）。$f_0$ 完全落在兩條虛線之間的接受區裡，所以不拒絕『兩變異數相等』。"}
+knitr::include_graphics("figures/5-59_f_rejection.png")
 ```
 
 \begin{answerbox}
@@ -300,6 +320,10 @@ knitr::include_graphics(c("figures/5-41_diff_qq.png", "figures/5-41_diff_hist.pn
 \end{questionbox}
 
 ```{r ex5_69}
+```
+
+```{r ex5_69-fig, echo=FALSE, out.width="90%", fig.cap="Ex 5-69 在 $H_1: p_A = 0.40, p_B = 0.25$ 下，power 對每組樣本數 $n$ 的曲線。綠點 $n = 100$ 對應 power $= 0.735$、紫點是達到 power $\\ge 0.90$ 的 $n = 166$；紅虛線是目標 power。"}
+knitr::include_graphics("figures/5-69_power_vs_n.png")
 ```
 
 \begin{answerbox}
@@ -338,6 +362,10 @@ knitr::include_graphics(c("figures/5-41_diff_qq.png", "figures/5-41_diff_hist.pn
 \end{questionbox}
 
 ```{r ex5_73}
+```
+
+```{r ex5_71-73-fig, echo=FALSE, out.width="95%", fig.cap="Ex 5-71 與 5-73 兩種 95\\% 單邊下界並列。橘點是下界、深藍點是點估計，紅虛線在 0。兩種方法的下界都落在 0 左側，所以都無法在 95\\% 信心下斷言 $p_A > p_B$。"}
+knitr::include_graphics("figures/5-71-73_lb_compare.png")
 ```
 
 \begin{answerbox}

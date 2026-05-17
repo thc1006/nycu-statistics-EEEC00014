@@ -1,4 +1,4 @@
-# Homework Assignments 2 — Final Answers
+# Homework Assignments 2: Final Answers
 
 > Chapter 5 Decision Making for Two Samples，全部 10 題 (5-3、5-5、5-9、5-17、
 > 5-24、5-41、5-59、5-69、5-71、5-73)。數值統一四捨五入到小數第三位。
@@ -7,7 +7,7 @@
 
 ---
 
-## Exercise 5-3 — Bottle Filling Machines
+## Exercise 5-3: Bottle Filling Machines
 
 1. **Problem type**：兩獨立樣本平均數，已知變異數的雙尾 z 檢定。
 2. **Parameter of interest**：$\Delta = \mu_1 - \mu_2$。
@@ -28,7 +28,7 @@
 
 ---
 
-## Exercise 5-5 — Solid-Fuel Propellant Burning Rates
+## Exercise 5-5: Solid-Fuel Propellant Burning Rates
 
 1. **Problem type**：兩獨立樣本平均數、已知共通標準差的雙尾 z 檢定。
 2. **Parameter of interest**：$\Delta = \mu_1 - \mu_2$（單位 cm/s）。
@@ -49,7 +49,7 @@
 
 ---
 
-## Exercise 5-9 — Sample Size for Estimating $\mu_1 - \mu_2$
+## Exercise 5-9: Sample Size for Estimating $\mu_1 - \mu_2$
 
 1. **Problem type**：兩獨立樣本平均數的「估計樣本數」（已知 $\sigma$，雙尾 CI 寬度設計）。
 2. **Parameter of interest**：$\mu_1 - \mu_2$。
@@ -61,7 +61,7 @@
 
 ---
 
-## Exercise 5-17 — Single vs Dual Spindle Saw
+## Exercise 5-17: Single vs Dual Spindle Saw
 
 1. **Problem type**：兩獨立樣本平均數、未知但相等變異數的 pooled t 檢定。
 2. **Parameter of interest**：$\mu_{\text{single}} - \mu_{\text{double}}$。
@@ -81,11 +81,12 @@
    pooled t，用 `power.t.test(delta = 15, sd = 8.261, sig.level = 0.05, power = 0.9)`，
    $n = \mathbf{8}$ 每組 ($n=7$ 時 power $= 0.876$，$n=8$ 時 power $= 0.921$ 過關)。
 9. **Practical interpretation**：single 製程的 backside chipouts 平均明顯大於 double
-   製程，差距大約 14.9 到 27.3 μm；若要在實務上偵測 15 μm 的差距，每組只需要 8 顆樣本就夠。
+   製程，差距大約落在 14.9 到 27.3 個單位之間；若要在實務上偵測 15 個單位的差距，
+   每組只需要 8 顆樣本就夠。
 
 ---
 
-## Exercise 5-24 — Plastic Gear Suppliers
+## Exercise 5-24: Plastic Gear Suppliers
 
 1. **Problem type**：兩獨立樣本平均數、未知且不相等變異數的 Welch t 檢定。
 2. **Parameter of interest**：$\mu_2 - \mu_1$（supplier 2 − supplier 1，foot-pounds）。
@@ -110,7 +111,7 @@
 
 ---
 
-## Exercise 5-41 — Paired Coding Times
+## Exercise 5-41: Paired Coding Times
 
 1. **Problem type**：12 個程式員配對 t；資料為「在兩種設計語言下」coding time。
 2. **Parameter of interest**：$\mu_D = E(\text{Lang1} - \text{Lang2})$（分鐘）。
@@ -129,7 +130,7 @@
 
 ---
 
-## Exercise 5-59 — Equality of Two Variances (Gear Data)
+## Exercise 5-59: Equality of Two Variances (Gear Data)
 
 1. **Problem type**：兩母體變異數比較，雙尾 F 檢定。
 2. **Parameter of interest**：$\sigma_1^2 / \sigma_2^2$。
@@ -148,7 +149,7 @@
 
 ---
 
-## Exercise 5-69 — Rollover Rates (Two Proportions)
+## Exercise 5-69: Rollover Rates (Two Proportions)
 
 1. **Problem type**：兩母體比例，單尾 z 檢定。
 2. **Parameter of interest**：$p_A - p_B$。
@@ -177,7 +178,7 @@
 
 ---
 
-## Exercise 5-71 — 95% Lower Bound on $p_A - p_B$
+## Exercise 5-71: 95% Lower Bound on $p_A - p_B$
 
 1. **Problem type**：兩母體比例差的單邊（lower）信賴下界。
 2. **Parameter of interest**：$p_A - p_B$。
@@ -196,7 +197,7 @@
 
 ---
 
-## Exercise 5-73 — New CI (Plus-Four / Agresti-Caffo)
+## Exercise 5-73: New CI (Plus-Four / Agresti-Caffo)
 
 1. **Problem type**：兩母體比例差的單邊下界，採 plus-four 修正。
 2. **Setting**：$\tilde n_i = n_i + 2$、$\tilde x_i = x_i + 1$，每組各加一顆成功一顆失敗。
