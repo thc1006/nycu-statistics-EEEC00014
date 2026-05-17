@@ -27,3 +27,6 @@ Thumbs.db
 .idea/
 *.swp
 *~
+*.mp4
+CLAUDE.md
+AGENTS.md

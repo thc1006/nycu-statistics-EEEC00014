@@ -4,6 +4,8 @@
 `homeworkN/` 子資料夾裡自成一個小專案，包含原始題目、R 源碼、
 console 輸出、視覺化、以及最終 A4 列印 PDF。
 
+https://youtube.com/playlist?list=PLXVLb6NXPlmP9vEvX0HhY7XaER2D6emBM
+
 ## 目錄結構
 
 ```
@@ -33,3 +35,5 @@ console 輸出、視覺化、以及最終 A4 列印 PDF。
 | 資料夾 | 主題 | 章節範圍 | 狀態 |
 |---|---|---|---|
 | [`homework1/`](homework1/) | Decision Making for a Single Sample | Ch 4 | ✓ 完成 |
+| [`homework2/`](homework2/) | placeholder | Ch 5 | placeholder |
+| [`homework3/`](homework3/) | placeholder | placeholder | placeholder |
