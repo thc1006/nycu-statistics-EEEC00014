@@ -267,6 +267,8 @@ cat(sprintf("Power at n-1 (%d) = %.3f , beta = %.3f\n",
 cat(sprintf("Power at n   (%d) = %.3f , beta = %.3f\n",
             n_req,     pw_n,  1 - pw_n))
 
+
+## ---- ex5_03_plot ----
 # Power curve：以 delta 為 x 軸
 pwr_grid <- tibble(
   delta = seq(0, 0.10, length.out = 200)
@@ -345,6 +347,8 @@ cat(sprintf("CI = (%.3f , %.3f)\n", CI[1], CI[2]))
 cat(sprintf("[zsum.test CI]   (%.3f , %.3f)\n",
             zsum_chk$conf.int[1], zsum_chk$conf.int[2]))
 
+
+## ---- ex5_05_plot ----
 # Beta 區域圖：H0 跟 H1 兩條常態，beta 對應沒被拒絕的部分
 # 拿真實 delta = 2.5 的設定畫，能看出 power=0.75 的幾何意義
 beta_grid <- seq(-3, 6, length.out = 600)
@@ -475,6 +479,8 @@ cat(sprintf("Power at n-1 (%d) = %.3f , beta = %.3f\n",
 cat(sprintf("Power at n   (%d) = %.3f , beta = %.3f\n",
             n_req,     pw_n,  1 - pw_n))
 
+
+## ---- ex5_17_plot ----
 # t 分布拒絕區圖：df=28, 雙尾 alpha=0.05，順手把觀察到的 t0 也標出來
 t_grid <- seq(-8, 8, length.out = 700)
 t_df_plot <- tibble(t = t_grid, dens = dt(t_grid, df))
@@ -576,6 +582,8 @@ cat(sprintf("Is 25 inside the CI? %s -> %s\n",
                    "consistent with (b): FAIL TO REJECT",
                    "would REJECT H0 in (b)")))
 
+
+## ---- ex5_24_plot ----
 # CI 圖：把點估計 + 95% CI + 兩條參考線 (0 與 25) 畫在同一條 X 軸上
 ci_df_5_24 <- tibble(
   label = "mu2 - mu1",
@@ -656,6 +664,10 @@ if (CI[1] <= 0 && 0 <= CI[2]) {
 # --- (b) Normality of the differences ---
 print_subhead("(b) Normality check on the paired differences")
 (sw_p <- shapiro.test(Coding.diff))
+cat("差值的常態假設用 Shapiro-Wilk + Q-Q plot 一起看，圖見 figures/。\n")
+
+## ---- ex5_41_plot ----
+# 配對差值的常態性檢查圖：Q-Q + 直方圖（save_normality_plots 已封裝）
 save_normality_plots(Coding.diff,
                      "Ex 5-41 Coding.diff",
                      "5-41_diff",
@@ -666,8 +678,6 @@ car::qqPlot(Coding.diff,
             main = "Ex 5-41: paired diff Q-Q plot",
             ylab = "Coding.diff (Lang1 - Lang2)")
 invisible(dev.off())
-cat("Figures saved: figures/5-41_diff_qq.png, figures/5-41_diff_hist.png, ",
-    "figures/5-41_diff_qqplot.png\n", sep = "")
 
 
 ## ---- ex5_59 ----
@@ -707,6 +717,8 @@ UB <- (s[1]^2 / s[2]^2) / qf(    alpha/2, df[1], df[2])
 cat(sprintf("95%% CI for sigma1^2 / sigma2^2 = (%.3f , %.3f)\n", LB, UB))
 cat("1 落在 CI 裡 -> 跟 P-value 結論一致（不拒絕兩變異數相等）。\n")
 
+
+## ---- ex5_59_plot ----
 # F(9, 15) 分布 + 雙尾拒絕區 + f0 標記
 f_grid <- seq(0.001, 6, length.out = 700)
 f_df_plot <- tibble(f = f_grid, dens = df(f_grid, df[1], df[2]))
@@ -794,6 +806,8 @@ cat(sprintf("Required n (each group) = %d\n", n_req))
 cat(sprintf("Power at current n = 100 each: %.3f\n", pwr_at100))
 cat("結論：n=100 還沒到 0.9 power，按公式得補到 ", n_req, " 每組才夠。\n", sep = "")
 
+
+## ---- ex5_69_plot ----
 # Power 對「每組樣本數」的關係圖：把現有 n=100 跟需要的 n=166 都標出來
 n_grid <- seq(30, 250, by = 2)
 pwr_grid_5_69 <- tibble(
@@ -881,6 +895,8 @@ cat(sprintf("Difference (new - trad) = %.3f\n", LB_new - LB_trad))
 cat("解讀：plus-four 把 (x, n) 換成 (x+1, n+2)，等於各組多 1 顆成功 1 顆失敗，\n")
 cat("       ptilde 更靠近 0.5，setilde 微幅變大，下界比傳統 Wald 略保守。\n")
 
+
+## ---- ex5_73_plot ----
 # 把兩條單邊下界畫成水平線段，0 標一條垂直參考
 lb_df <- tibble(
   method = factor(c("Traditional Wald (5-71)",

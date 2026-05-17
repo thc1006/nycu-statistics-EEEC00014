@@ -156,8 +156,8 @@ Interpretation: 0 落在 95% CI 內，沒有證據說兩種語言的平均 codin
 data:  Coding.diff
 W = 0.96165, p-value = 0.8071
 
+差值的常態假設用 Shapiro-Wilk + Q-Q plot 一起看，圖見 figures/。
 [1] 5 7
-Figures saved: figures/5-41_diff_qq.png, figures/5-41_diff_hist.png, figures/5-41_diff_qqplot.png
 
 ============================================================
  EXERCISE 5-59: F-TEST FOR EQUAL VARIANCES (GEAR DATA)

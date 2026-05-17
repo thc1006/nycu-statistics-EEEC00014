@@ -13,13 +13,13 @@ output:
     highlight: tango
 geometry:
   - paper=a4paper
-  - top=2.0cm
-  - bottom=2.0cm
-  - left=2.2cm
-  - right=2.2cm
+  - top=1.6cm
+  - bottom=1.8cm
+  - left=1.8cm
+  - right=1.8cm
   - headheight=14pt
 fontsize: 11pt
-linestretch: 1.10
+linestretch: 1.05
 header-includes:
   - \usepackage{float}
   - \usepackage{xeCJK}
@@ -103,8 +103,9 @@ Samples*。10 題依題型大致可以分成五群：
 給出實務脈絡的解釋。所有數值依本次作業規範**四捨五入到第三位小數**，樣本數
 一律 `ceiling()`。共用工具函式（`Pwr.z.test`、`SplSz.z.test`、`SplSz.z.CI`、
 `Pwr.t.test`、`TwoPropStats`、`Pwr.prop2.test`、`SplSz.prop2.test`、`get_stats`、
-`save_normality_plots`）跟套件載入都統一放在腳本最前段，完整 R 原始碼在文末
-的「附錄 A」一次列出。
+`save_normality_plots`）跟套件載入都統一放在 `homework_assignments_2.R` 的最前段。
+本 PDF 只呈現每題的統計計算程式碼與 console 結果，繪圖程式碼放在獨立的
+`_plot` chunks 裡執行但不嵌入 PDF，避免畫面被 `ggplot` 樣板程式塞滿。
 
 > 助教校正：5-69(b)(c) 中提到的 $p_A = 0.4$、$p_B = 0.25$ 是 **$H_1$ 下的真實
 > $p$**（為了算 power / 樣本數而設定），跟資料給的點估計 $\hat p_A = 35/100$、
@@ -265,12 +266,8 @@ knitr::include_graphics("figures/5-24_ci_forest.png")
 ```{r ex5_41}
 ```
 
-```{r ex5_41-fig-qq, echo=FALSE, out.width="80%", fig.cap="Ex 5-41 配對差值的 Normal Q-Q plot。X 軸是理論常態分位數、Y 軸是樣本分位數（單位：分鐘）；12 個點都貼著紅色參考線，配合 $W = 0.962$、$p = 0.807$ 可以接受差值的常態假設。"}
-knitr::include_graphics("figures/5-41_diff_qq.png")
-```
-
-```{r ex5_41-fig-hist, echo=FALSE, out.width="80%", fig.cap="Ex 5-41 配對差值的直方圖與套疊的常態曲線。X 軸是 Coding.diff（分鐘）、Y 軸是 density；底部 rug 把 12 個觀測值的位置點出來。"}
-knitr::include_graphics("figures/5-41_diff_hist.png")
+```{r ex5_41-figs, echo=FALSE, fig.show='hold', out.width="49%", fig.cap="Ex 5-41 配對差值的常態性檢查。左：Normal Q-Q plot（Y 軸 = 樣本分位數，單位分鐘），12 點貼合紅色參考線。右：直方圖與套疊常態曲線（X 軸 = Coding.diff，單位分鐘），底部 rug 標出 12 個觀測。"}
+knitr::include_graphics(c("figures/5-41_diff_qq.png", "figures/5-41_diff_hist.png"))
 ```
 
 \begin{answerbox}
@@ -406,8 +403,11 @@ R 4.5.2 跑完所有題目，繪圖用 \texttt{ggplot2} 與 \texttt{car::qqPlot}
 \texttt{stats::t.test}、\texttt{stats::prop.test}、\texttt{stats::power.t.test}。
 \end{flushleft}
 
-\newpage
+\vspace{0.6em}
 
-# 附錄 A：完整 R 原始碼 (`homework_assignments_2.R`)
-
-\VerbatimInput[fontsize=\footnotesize,breaklines=true,breakanywhere=true,numbers=left,numbersep=4pt,frame=leftline,framesep=4pt]{homework_assignments_2.R}
+\textbf{完整 R 原始碼}：見同目錄下的 \texttt{homework\_assignments\_2.R}（含
+共用 helper 函式 \texttt{Pwr.z.test}、\texttt{SplSz.z.test}、\texttt{SplSz.z.CI}、
+\texttt{Pwr.t.test}、\texttt{TwoPropStats}、\texttt{Pwr.prop2.test}、
+\texttt{SplSz.prop2.test}）；console 完整輸出見
+\texttt{homework\_assignments\_2\_output.txt}。本 PDF 內每題已直接呈現各自的
+統計計算程式碼與 console 結果，繪圖程式碼略，避免重複。
