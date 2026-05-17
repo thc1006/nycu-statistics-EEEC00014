@@ -1,0 +1,227 @@
+載入需要的套件：pacman
+
+============================================================
+ EXERCISE 5-3: BOTTLE FILLING MACHINES
+============================================================
+
+--- Sample summary ---
+   n   Mean   Var Std_Dev Std_Error Median
+1 10 16.015 0.001    0.03      0.01  16.02
+   n   Mean   Var Std_Dev Std_Error Median
+1 10 16.005 0.001   0.025     0.008  16.01
+[1] 16.015 16.005
+[1] 0.01012423
+[1] 0.9877296
+
+--- (a) Two-sided z-test (known variances) ---
+H0: mu1  = mu2
+H1: mu1 != mu2
+xbar     = (16.015, 16.005)
+xbar.diff = 0.010
+se0      = 0.010
+z0       = 0.988
+P-value  = 0.323
+Decision:  FAIL TO REJECT H0 
+[BSDA::z.test]  z = 0.988, p = 0.323
+
+--- (b) Power for true |mu1 - mu2| = 0.04 (alpha = 0.05) ---
+delta    = 0.040
+Power    = 0.977
+Beta     = 0.023
+
+--- (c) 95% Confidence Interval for mu1 - mu2 ---
+[1] 1.959964
+CI = (-0.010 , 0.030)
+[BSDA::z.test CI] (-0.010 , 0.030)
+
+--- (d) Equal n so that beta = 0.01 when |mu1 - mu2| = 0.04 ---
+Required n (each group) = 12
+Power at n-1 (11) = 0.986 , beta = 0.014
+Power at n   (12) = 0.991 , beta = 0.009
+
+============================================================
+ EXERCISE 5-5: SOLID-FUEL PROPELLANT BURNING RATES
+============================================================
+[1] 0.9486833
+[1] -6.693488
+
+--- (a)(b) Two-sided z-test, alpha = 0.05 ---
+[1] 1.959964
+H0: mu1  = mu2
+H1: mu1 != mu2
+se0     = 0.949
+z0      = -6.693
+CritVal = +/- 1.960
+P-value = 0.000
+Decision:  REJECT H0 
+[BSDA::zsum.test]  z = -6.693, p = 0.000
+
+--- (c) Beta when true mu1 - mu2 = 2.5 cm/s ---
+delta = 2.500
+Power = 0.750
+Beta  = 0.250
+
+--- (d) 95% CI for mu1 - mu2 ---
+CI = (-8.209 , -4.491)
+[zsum.test CI]   (-8.209 , -4.491)
+
+============================================================
+ EXERCISE 5-9: SAMPLE SIZE FOR DIFFERENCE IN MEANS
+============================================================
+Confidence level = 0.990
+Margin of error E = 4 cm/s
+sigma = (3, 3)
+z_{0.005} = 2.576
+Formula value = 7.464 -> ceiling = 8 (per group)
+
+============================================================
+ EXERCISE 5-17: SINGLE vs DUAL SPINDLE SAW
+============================================================
+[1] 8.261282
+[1] 3.016594
+[1] 6.996965
+
+--- (a) Two-sided pooled t-test ---
+H0: mu_single  = mu_double
+H1: mu_single != mu_double
+s_p     = 8.261
+se      = 3.017
+t0      = 6.997
+df      = 28
+P-value = 1.31e-07
+Decision:  REJECT H0 
+[BSDA::tsum.test]  t = 6.997, df = 28, p = 1.31e-07
+
+--- (b) 95% CI for mu_single - mu_double ---
+t_{0.025, 28} = 2.048
+CI = (14.928 , 27.286)
+[tsum.test CI]   (14.928 , 27.286)
+
+--- (c) Equal n so that beta <= 0.10 when |mu1 - mu2| = 15 ---
+sigma estimate (= s_p) = 8.261
+power.t.test raw n     = 7.480 -> ceiling = 8 (per group)
+Power at n-1 (7) = 0.876 , beta = 0.124
+Power at n   (8) = 0.921 , beta = 0.079
+
+============================================================
+ EXERCISE 5-24: PLASTIC GEAR SUPPLIERS
+============================================================
+[1] 8.84237
+
+--- (a) One-sided Welch t-test, H1: mu2 > mu1 ---
+H0: mu1 = mu2  (delta = mu2 - mu1 = 0)
+H1: mu2 > mu1  (delta > 0)
+se (Welch)   = 8.842
+df (Welch)   = 18.226
+t0           = 3.642
+P-value      = 0.001
+Decision:  REJECT H0 
+[BSDA::tsum.test]  t = 3.642, df = 18.226, p = 0.001
+
+--- (b) Test claim mu2 - mu1 >= 25 (Welch t) ---
+H0: mu2 - mu1  = 25
+H1: mu2 - mu1  > 25
+observed diff = 32.200
+t0           = 0.814
+P-value      = 0.213
+Decision:  FAIL TO REJECT H0 
+Interpretation: 沒有夠強的證據說『supplier 2 比 supplier 1 平均多 25 foot-pounds 以上』。
+
+--- (c) 95% CI for mu2 - mu1 ---
+t_{0.025, 18.23} = 2.099
+CI for mu2 - mu1 = (13.639 , 50.761)
+Is 25 inside the CI? Yes -> consistent with (b): FAIL TO REJECT
+
+============================================================
+ EXERCISE 5-41: PAIRED CODING TIMES (TWO DESIGN LANGUAGES)
+============================================================
+
+--- Summary of paired differences (Lang1 - Lang2) ---
+   n  Mean   Var Std_Dev Std_Error Median
+1 12 0.667 8.788   2.964     0.856    1.5
+
+--- (a) 95% CI on mean(Lang1 - Lang2) ---
+xbar_d (Lang1 - Lang2) = 0.667
+s_d                    = 2.964
+se_d                   = 0.856
+t_{0.025, 11}           = 2.201
+95% CI = (-1.217 , 2.550)
+[t.test CI]  (-1.217 , 2.550)
+Interpretation: 0 落在 95% CI 內，沒有證據說兩種語言的平均 coding time 不同。
+
+--- (b) Normality check on the paired differences ---
+
+	Shapiro-Wilk normality test
+
+data:  Coding.diff
+W = 0.96165, p-value = 0.8071
+
+[1] 5 7
+Figures saved: figures/5-41_diff_qq.png, figures/5-41_diff_hist.png, figures/5-41_diff_qqplot.png
+
+============================================================
+ EXERCISE 5-59: F-TEST FOR EQUAL VARIANCES (GEAR DATA)
+============================================================
+[1] 1.147959
+
+--- Two-sided F-test, alpha = 0.05 ---
+H0: sigma1^2  = sigma2^2
+H1: sigma1^2 != sigma2^2
+f0      = s1^2 / s2^2 = 1.148
+df      = (9, 15)
+F_{0.025, 9, 15} = 0.265 , F_{0.975, 9, 15} = 3.123
+P-value = 0.781
+Decision:  FAIL TO REJECT H0 
+95% CI for sigma1^2 / sigma2^2 = (0.368 , 4.327)
+1 落在 CI 裡 -> 跟 P-value 結論一致（不拒絕兩變異數相等）。
+
+============================================================
+ EXERCISE 5-69: ROLLOVER RATES (TWO PROPORTIONS)
+============================================================
+
+--- (a) One-sided two-proportion z-test (P-value approach) ---
+[1] 1.543033
+[1] 0.06141132
+H0: pA  = pB
+H1: pA  > pB
+phat.A   = 0.350 , phat.B   = 0.250
+phat.p   = 0.300 , se.p     = 0.065
+z0       = 1.543
+P-value  = 0.061
+Decision:  FAIL TO REJECT H0 
+[prop.test]  chi^2 = 2.381, p = 0.061
+
+--- (b) Power assuming pA = 0.4, pB = 0.25 (H1) ---
+Under H1: pA = 0.40, pB = 0.25 -> pA - pB = 0.15
+Power = 0.735 , beta = 0.265
+
+--- (c) Is n = 100 each enough for power >= 0.90? ---
+Required n (each group) = 166
+Power at current n = 100 each: 0.735
+結論：n=100 還沒到 0.9 power，按公式得補到 166 每組才夠。
+
+============================================================
+ EXERCISE 5-71: 95% LOWER CONFIDENCE BOUND FOR pA - pB
+============================================================
+phat.diff = 0.100 , sehat = 0.064
+z_{0.05}  = 1.645
+Lower bound LB = phat.diff - z_{0.05} * sehat = -0.006
+95% one-sided lower bound : [ -0.006 , 1 ]
+LB <= 0 -> 0 還在區間裡，沒有 95% 信心斷言 pA > pB；跟 5-69(a) 邊界 P-value 一致。
+
+============================================================
+ EXERCISE 5-73: NEW CI (PLUS-FOUR / AGRESTI-CAFFO)
+============================================================
+ntilde = (102, 102)
+xtilde = (36, 26)
+ptilde     = (0.353, 0.255)
+ptilde.diff = 0.098 , setilde = 0.064
+New lower bound LB_new  = -0.007
+Traditional bound LB    = -0.006 (from 5-71)
+Difference (new - trad) = -0.001
+解讀：plus-four 把 (x, n) 換成 (x+1, n+2)，等於各組多 1 顆成功 1 顆失敗，
+       ptilde 更靠近 0.5，setilde 微幅變大，下界比傳統 Wald 略保守。
+
+============================================================
+ All Chapter 5 exercises completed.
+============================================================
