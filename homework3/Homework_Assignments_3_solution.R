@@ -184,11 +184,11 @@ print_header("EXERCISE 6-11: prediction at strength x0 = 2.1")
 pred_fit <- predict(lm.Concrete, newdata)
 cat(sprintf("(a) mean permeability at x0 = 2.1 : %.3f\n", pred_fit))
 
-# (b) 99% CI on the mean response
+# (b) 平均反應的 99% CI
 pred_ci <- predict(lm.Concrete, newdata, interval = "confidence", level = 0.99)
 cat(sprintf("(b) 99%% CI  : [%.3f , %.3f]\n", pred_ci[2], pred_ci[3]))
 
-# (c) 99% PI on a future observation
+# (c) 單一未來觀測的 99% PI
 pred_pi <- predict(lm.Concrete, newdata, interval = "prediction", level = 0.99)
 cat(sprintf("(c) 99%% PI  : [%.3f , %.3f]\n", pred_pi[2], pred_pi[3]))
 
@@ -264,9 +264,11 @@ band_df <- data.frame(
 )
 p_pred <- ggplot(band_df, aes(strength)) +
   geom_ribbon(aes(ymin = pi_lwr, ymax = pi_upr),
-              fill = "orange", alpha = 0.20) +
+              fill = "orange", alpha = 0.18) +
+  # CI 帶提高不透明度並加藍色邊，避免疊在橘色 PI 上被洗成灰色
   geom_ribbon(aes(ymin = ci_lwr, ymax = ci_upr),
-              fill = "steelblue", alpha = 0.30) +
+              fill = "steelblue", alpha = 0.55,
+              color = "steelblue4", linewidth = 0.3) +
   geom_line(aes(y = fit), color = "steelblue", linewidth = 1) +
   geom_point(data = Concrete, aes(strength, permeability),
              size = 2.2, color = "navy") +
