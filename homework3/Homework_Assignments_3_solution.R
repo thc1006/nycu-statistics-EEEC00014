@@ -86,7 +86,7 @@ cat(sprintf("    df (residual) = %d\n", lm.Concrete$df.residual))
 cat(sprintf("    sigma^2_hat (MSE) = %.3f\n", MSE))
 cat(sprintf("    residual standard error sigma_hat = %.3f\n", sqrt(MSE)))
 
-# (d) 兩個估計係數的 standard error（套校訂註記讀作 "estimated" 係數）
+# (d) 兩個估計係數的 standard error
 se_coef <- model_summary$coefficients[, "Std. Error"]
 cat(sprintf("\n(d) SE(beta0_hat) = %.3f\n", se_coef[1]))
 cat(sprintf("    SE(beta1_hat) = %.3f\n", se_coef[2]))

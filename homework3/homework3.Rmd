@@ -22,6 +22,7 @@ fontsize: 11pt
 linestretch: 1.05
 header-includes:
   - \usepackage{float}
+  - \usepackage{setspace}
   - \usepackage{xeCJK}
   - \setCJKmainfont[BoldFont={Noto Sans CJK TC},ItalicFont={Noto Sans CJK TC}]{Noto Sans CJK TC}
   - \setCJKsansfont{Noto Sans CJK TC}
@@ -37,8 +38,8 @@ header-includes:
   - \definecolor{quotebg}{HTML}{FAF7EE}
   - \definecolor{quoteline}{HTML}{B08D3A}
   - \usepackage[most]{tcolorbox}
-  - \newtcolorbox{answerbox}{enhanced jigsaw,breakable,colback=ansbg,frame hidden,borderline west={2pt}{0pt}{ansaccent},arc=0pt,outer arc=0pt,attach boxed title to top left={xshift=2pt,yshift=-2.5mm},boxed title style={enhanced,colback=ansaccent,colframe=ansaccent,sharp corners,boxrule=0pt,arc=0pt,left=8pt,right=8pt,top=2pt,bottom=2pt},title={\textcolor{white}{\sffamily\bfseries\strut 最終答案 Final Answer}},fontupper=\small,left=10pt,right=10pt,top=10pt,bottom=4pt,before upper={\vspace{0.4em}}}
-  - \newtcolorbox{questionbox}{enhanced jigsaw,breakable,colback=quotebg,frame hidden,borderline west={2pt}{0pt}{quoteline},arc=0pt,outer arc=0pt,fontupper=\small,left=10pt,right=10pt,top=6pt,bottom=6pt}
+  - \newtcolorbox{answerbox}{enhanced jigsaw,breakable,colback=ansbg,frame hidden,borderline west={2pt}{0pt}{ansaccent},arc=0pt,outer arc=0pt,attach boxed title to top left={xshift=2pt,yshift=-2.5mm},boxed title style={enhanced,colback=ansaccent,colframe=ansaccent,sharp corners,boxrule=0pt,arc=0pt,left=8pt,right=8pt,top=2pt,bottom=2pt},title={\textcolor{white}{\sffamily\bfseries\strut 最終答案 Final Answer}},fontupper=\small,left=10pt,right=10pt,top=10pt,bottom=6pt,before upper={\vspace{0.4em}\setstretch{1.3}\setlist{itemsep=5pt,topsep=2pt,leftmargin=*}}}
+  - \newtcolorbox{questionbox}{enhanced jigsaw,breakable,colback=quotebg,frame hidden,borderline west={2pt}{0pt}{quoteline},arc=0pt,outer arc=0pt,fontupper=\small,left=10pt,right=10pt,top=6pt,bottom=6pt,before upper={\setstretch{1.15}\setlist{itemsep=2pt,topsep=2pt,leftmargin=*}}}
   - \usepackage{titling}
   - \pretitle{\vspace*{6cm}\begin{center}\Huge\bfseries}
   - \posttitle{\par\end{center}\vskip 1.2em}
@@ -105,10 +106,6 @@ $$
 PDF 只呈現每小題的統計計算程式碼與 console 結果，繪圖的 `ggplot` 樣板碼放在獨立
 的 `_plot` 區塊執行但不嵌入 PDF。完整原始碼見 `.R` 檔，完整 console 輸出見
 `homework_assignments_3_output.txt`。
-
-> 校訂註記：PDF 在 6-5(d) 有 StrikeOut + Caret 插入 `the estimated`，所以 (d)
-> 讀作 "Find the standard error of the **estimated** slope and intercept
-> coefficients."；6-11 的 $x_0$ 是 **2.1**（PDF 文字層誤判成 `2 .1`）。
 
 \newpage
 

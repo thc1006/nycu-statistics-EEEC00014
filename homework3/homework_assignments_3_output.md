@@ -53,7 +53,6 @@ R 指令：`SSE <- sum(resid(lm.Concrete)^2)`、`MSE <- SSE / df.residual`。
 
 ### (d) Standard error of the estimated slope and intercept
 
-（套用 PDF 校訂註記，讀作 the **estimated** slope and intercept coefficients。）
 R 指令：`summary(lm.Concrete)$coefficients[, "Std. Error"]`。
 
 - $SE(\hat\beta_0) = 0.751$。
