@@ -2,9 +2,8 @@
 
 > Chapter 6 Simple Linear Regression，Exercise 6-5 與 6-11。資料為混凝土
 > compressive strength ($x$) 對 intrinsic permeability ($y$)，共 15 筆。
-> 依助教規定：過程數值算到第三位、最終答案四捨五入到第三位。完整 R 程式碼、
-> console 輸出與圖見 `Homework_Assignments_3_solution.R`、
-> `homework_assignments_3_output.txt`、`figures/`。
+> 依助教規定：過程數值算到第三位、最終答案四捨五入到第三位。每小題附上對應的
+> R 指令與計算結果。
 >
 > 模型：$y = \beta_0 + \beta_1 x + \varepsilon$，以 `lm(permeability ~ strength)` 配適。
 

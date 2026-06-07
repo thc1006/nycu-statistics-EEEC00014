@@ -101,11 +101,9 @@ $$
 - **Exercise 6-11 (a)-(d)**：在 $x_0 = 2.1$ 求平均反應、99% CI、99% PI，並比較
   兩個區間的寬度。
 
-依助教規定，過程數值算到第三位、最終答案四捨五入到第三位。共用設定（套件、
-`fmt3`、`print_header`）放在 `Homework_Assignments_3_solution.R` 的最前段；本
-PDF 只呈現每小題的統計計算程式碼與 console 結果，繪圖的 `ggplot` 樣板碼放在獨立
-的 `_plot` 區塊執行但不嵌入 PDF。完整原始碼見 `.R` 檔，完整 console 輸出見
-`homework_assignments_3_output.txt`。
+依助教規定，過程數值算到第三位、最終答案四捨五入到第三位。套件載入與共用設定
+（`fmt3`、`print_header`）統一放在腳本最前段；本報告每小題直接呈現該題的統計計算
+程式碼與 console 結果，繪圖的 `ggplot` 樣板碼為精簡版面而省略，只保留最終圖檔。
 
 \newpage
 
@@ -241,6 +239,4 @@ knitr::include_graphics("figures/6-11_ci_pi_band.png")
 R 4.5.2 跑完所有計算，繪圖用 \texttt{ggplot2}（散布/殘差/Q-Q/CI-PI 帶）與 base R
 \texttt{plot(lm)} 四連圖；模型與檢定用 \texttt{lm}、\texttt{summary}、\texttt{anova}、
 \texttt{confint}、\texttt{predict}、\texttt{cor.test}、\texttt{olsrr}、\texttt{car}。
-完整 R 原始碼見 \texttt{Homework\_Assignments\_3\_solution.R}，完整 console 輸出見
-\texttt{homework\_assignments\_3\_output.txt}。
 \end{flushleft}
