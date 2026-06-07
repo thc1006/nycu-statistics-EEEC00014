@@ -26,20 +26,31 @@ console 輸出、視覺化、以及最終 A4 列印 PDF。
 │   ├── plots/
 │   ├── Homework_Assignments_1.md
 │   └── Homework Assignments_1.pdf
-└── homework2/         # Chapter 5 兩樣本推論（10 題）
+├── homework2/         # Chapter 5 兩樣本推論（10 題）
+│   ├── AGENTS.md
+│   ├── CLAUDE.md
+│   ├── homework_assignments_2.R
+│   ├── homework2.Rmd
+│   ├── homework2.pdf
+│   ├── homework_assignments_2_output.md
+│   ├── homework_assignments_2_output.txt
+│   ├── figures/
+│   ├── Homework_Assignments_2.md
+│   └── Homework Assignments 2.pdf
+└── homework3/         # Chapter 6 簡單線性回歸（6-5、6-11）
     ├── AGENTS.md
     ├── CLAUDE.md
-    ├── homework_assignments_2.R
-    ├── homework2.Rmd
-    ├── homework2.pdf
-    ├── homework_assignments_2_output.md
-    ├── homework_assignments_2_output.txt
+    ├── Homework_Assignments_3_solution.R
+    ├── homework3.Rmd
+    ├── homework3.pdf
+    ├── homework_assignments_3_output.md
+    ├── homework_assignments_3_output.txt
     ├── figures/
-    ├── Homework_Assignments_2.md
-    └── Homework Assignments 2.pdf
+    ├── Homework_Assignments_3.md
+    └── Homework Assignments 3.pdf
 ```
 
-之後的作業會以 `homework3/`、`homework4/`...的形式陸續加入。
+之後的作業會以 `homework4/`、`homework5/`...的形式陸續加入。
 
 ## 作業列表
 
@@ -47,4 +58,4 @@ console 輸出、視覺化、以及最終 A4 列印 PDF。
 |---|---|---|---|
 | [`homework1/`](homework1/) | Decision Making for a Single Sample | Ch 4 | ✓ 完成 |
 | [`homework2/`](homework2/) | Decision Making for Two Samples | Ch 5 | ✓ 完成 |
-| [`homework3/`](homework3/) | placeholder | placeholder | placeholder |
+| [`homework3/`](homework3/) | Simple Linear Regression | Ch 6 | ✓ 完成 |

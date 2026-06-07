@@ -1,0 +1,241 @@
+載入需要的套件：pacman
+   strength permeability
+1       3.1         33.0
+2       4.5         31.0
+3       3.4         34.9
+4       2.5         35.6
+5       2.2         36.1
+6       1.2         39.0
+7       5.3         30.1
+8       4.8         31.2
+9       2.4         35.7
+10      3.5         31.9
+11      1.3         37.3
+12      3.0         33.8
+13      3.3         32.8
+14      3.2         31.6
+15      1.8         37.7
+
+--- Summary of the Concrete data ---
+    strength      permeability  
+ Min.   :1.200   Min.   :30.10  
+ 1st Qu.:2.300   1st Qu.:31.75  
+ Median :3.100   Median :33.80  
+ Mean   :3.033   Mean   :34.11  
+ 3rd Qu.:3.450   3rd Qu.:35.90  
+ Max.   :5.300   Max.   :39.00  
+
+Call:
+lm(formula = permeability ~ strength, data = Concrete)
+
+Coefficients:
+(Intercept)     strength  
+     40.554       -2.123  
+
+
+Call:
+lm(formula = permeability ~ strength, data = Concrete)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.1595 -0.6203  0.2173  0.8184  1.5652 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  40.5536     0.7509  54.004  < 2e-16 ***
+strength     -2.1232     0.2313  -9.181 4.81e-07 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.038 on 13 degrees of freedom
+Multiple R-squared:  0.8664,	Adjusted R-squared:  0.8561 
+F-statistic: 84.28 on 1 and 13 DF,  p-value: 4.805e-07
+
+                        Model Summary                          
+--------------------------------------------------------------
+R                       0.931       RMSE                0.966 
+R-Squared               0.866       MSE                 0.933 
+Adj. R-Squared          0.856       Coef. Var           3.042 
+Pred R-Squared          0.828       AIC                47.532 
+MAE                     0.797       SBC                49.656 
+--------------------------------------------------------------
+ RMSE: Root Mean Square Error 
+ MSE: Mean Square Error 
+ MAE: Mean Absolute Error 
+ AIC: Akaike Information Criteria 
+ SBC: Schwarz Bayesian Criteria 
+
+                               ANOVA                                
+-------------------------------------------------------------------
+               Sum of                                              
+              Squares        DF    Mean Square      F         Sig. 
+-------------------------------------------------------------------
+Regression     90.759         1         90.759    84.285    0.0000 
+Residual       13.999        13          1.077                     
+Total         104.757        14                                    
+-------------------------------------------------------------------
+
+                                  Parameter Estimates                                    
+----------------------------------------------------------------------------------------
+      model      Beta    Std. Error    Std. Beta      t        Sig      lower     upper 
+----------------------------------------------------------------------------------------
+(Intercept)    40.554         0.751                 54.004    0.000    38.931    42.176 
+   strength    -2.123         0.231       -0.931    -9.181    0.000    -2.623    -1.624 
+----------------------------------------------------------------------------------------
+
+============================================================
+ EXERCISE 6-5 (a)-(d)
+============================================================
+(a) Estimated regression line
+beta0_hat = 40.554 , beta1_hat = -2.123
+yhat = 40.554 + (-2.123) * x
+   Observation strength permeability fitted residual
+1            1      3.1         33.0 33.972   -0.972
+2            2      4.5         31.0 30.999    0.001
+3            3      3.4         34.9 33.335    1.565
+4            4      2.5         35.6 35.246    0.354
+5            5      2.2         36.1 35.883    0.217
+6            6      1.2         39.0 38.006    0.994
+7            7      5.3         30.1 29.301    0.799
+8            8      4.8         31.2 30.362    0.838
+9            9      2.4         35.7 35.458    0.242
+10          10      3.5         31.9 33.123   -1.223
+11          11      1.3         37.3 37.794   -0.494
+12          12      3.0         33.8 34.184   -0.384
+13          13      3.3         32.8 33.547   -0.747
+14          14      3.2         31.6 33.759   -2.159
+15          15      1.8         37.7 36.732    0.968
+
+(c) SSE = 13.999
+    df (residual) = 13
+    sigma^2_hat (MSE) = 1.077
+    residual standard error sigma_hat = 1.038
+
+(d) SE(beta0_hat) = 0.751
+    SE(beta1_hat) = 0.231
+
+============================================================
+ EXERCISE 6-5 (e)-(h)
+============================================================
+(e) Sum-of-squares decomposition
+SST = 104.757
+SSR = 90.759
+SSE = 13.999
+SSR + SSE = 104.757  (應該等於 SST = 104.757)
+
+(f) R^2 = 0.866
+    亦即 strength 解釋了 permeability 約 86.6% 的變異。
+
+--- (g) t-tests for intercept and slope, alpha = 0.05 ---
+             Estimate Std. Error   t value     Pr(>|t|)
+(Intercept) 40.553642  0.7509317 54.004433 1.106512e-16
+strength    -2.123179  0.2312658 -9.180685 4.805472e-07
+intercept: t = 54.004, p = 1.11e-16
+slope    : t = -9.181, p = 4.81e-07
+兩個 p-value 都 < 0.05，截距與斜率都顯著。
+
+--- (h) ANOVA table ---
+Analysis of Variance Table
+
+Response: permeability
+          Df Sum Sq Mean Sq F value    Pr(>F)    
+strength   1 90.759  90.759  84.285 4.805e-07 ***
+Residuals 13 13.999   1.077                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+F = 84.285, p = 4.81e-07
+檢查 F = t^2 ? F = 84.285, t_slope^2 = 84.285
+
+============================================================
+ EXERCISE 6-5 (i): 95% CIs for intercept and slope
+============================================================
+                2.5 %    97.5 %
+(Intercept) 38.931353 42.175932
+strength    -2.622798 -1.623559
+95% CI for beta0: [38.931 , 42.176]
+95% CI for beta1: [-2.623 , -1.624]
+兩個 CI 都不含 0，跟 (g)(h) 的顯著結論一致。
+
+============================================================
+ EXERCISE 6-5 (j): model adequacy checks
+============================================================
+
+--- Breusch-Pagan test (constant variance) ---
+
+ Breusch Pagan Test for Heteroskedasticity
+ -----------------------------------------
+ Ho: the variance is constant            
+ Ha: the variance is not constant        
+
+                  Data                   
+ ----------------------------------------
+ Response : permeability 
+ Variables: fitted values of permeability 
+
+        Test Summary          
+ -----------------------------
+ DF            =    1 
+ Chi2          =    0.08570349 
+ Prob > Chi2   =    0.769712 
+
+--- Normality tests on residuals ---
+-----------------------------------------------
+       Test             Statistic       pvalue  
+-----------------------------------------------
+Shapiro-Wilk              0.969          0.8434 
+Kolmogorov-Smirnov        0.1213         0.9609 
+Cramer-von Mises          0.8167         0.0058 
+Anderson-Darling          0.2189         0.8012 
+-----------------------------------------------
+
+--- Outlier test (studentized residuals, Bonferroni) ---
+No Studentized residuals with Bonferroni p < 0.05
+Largest |rstudent|:
+    rstudent unadjusted p-value Bonferroni p
+14 -2.583729           0.023933      0.35899
+
+--- Influence measures summary ---
+Potentially influential observations of
+	 lm(formula = permeability ~ strength, data = Concrete) :
+
+   dfb.1_ dfb.strn dffit cov.r   cook.d hat  
+7  -0.43   0.57     0.64  1.51_*  0.21   0.32
+14 -0.15  -0.10    -0.70  0.52_*  0.17   0.07
+       dfb.1_    dfb.strn      dffit     cov.r    cook.d        hat
+7  -0.4290918  0.57074230  0.6409732 1.5055670 0.2075685 0.32185430
+14 -0.1536935 -0.09941244 -0.6981557 0.5199249 0.1696454 0.06804636
+
+============================================================
+ EXERCISE 6-5 (k): sample correlation and test
+============================================================
+[1] -0.930791
+
+	Pearson's product-moment correlation
+
+data:  Concrete$strength and Concrete$permeability
+t = -9.1807, df = 13, p-value = 4.805e-07
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.9771428 -0.7999540
+sample estimates:
+      cor 
+-0.930791 
+
+r = -0.931
+correlation t = -9.181, p = 4.81e-07
+檢查 r^2 = R^2 ? r^2 = 0.866, R^2 = 0.866
+
+============================================================
+ EXERCISE 6-11: prediction at strength x0 = 2.1
+============================================================
+  strength
+1      2.1
+(a) mean permeability at x0 = 2.1 : 36.095
+(b) 99% CI  : [35.059 , 37.131]
+(c) 99% PI  : [32.802 , 39.388]
+(d) CI width = 2.073 , PI width = 6.586
+PI 比 CI 寬，因為 PI 除了平均反應的估計誤差，還多加了單一未來觀測的隨機誤差。
+
+============================================================
+ All Chapter 6 exercises completed.
+============================================================
